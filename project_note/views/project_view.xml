@@ -1,0 +1,42 @@
+<odoo>
+    <data>
+
+        <record id="view_project_kanban_inherited" model="ir.ui.view">
+            <field name="name">project.project.timesheet.kanban.inherited</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.view_project_kanban"/>
+            <field name="priority">24</field>
+            <field name="arch" type="xml">
+                <field name="task_count" position="after">
+                    <field name="note_count"/>
+                </field>
+                <xpath expr="//div[hasclass('o_kanban_manage_view')]" position="inside">
+                    <div role="menuitem">
+                        <a name="action_project_notes" type="object">Notes</a>
+                    </div>
+                </xpath>
+                <xpath expr="//div[hasclass('o_project_kanban_boxes')]" position="inside">
+                    <a class="o_project_kanban_box" name="action_project_notes" type="object">
+                        <div>
+                            <span class="o_value"><t t-esc="record.note_count.value"/></span>
+                            <span class="o_label ms-1">Notes</span>
+                        </div>
+                    </a>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_task_search_form_inherit_notes" model="ir.ui.view">
+            <field name="name">project.task.search.inherit.notes</field>
+            <field name="model">project.task</field>
+            <field name="priority">10</field>
+            <field name="inherit_id" ref="project.view_task_search_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='tasks_due_today']" position="after">
+                    <filter name="task_with_notes" string="Tasks with notes" domain="[('note_count', '&gt;', 0)]"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

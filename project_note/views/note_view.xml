@@ -1,0 +1,15 @@
+<odoo>
+
+    <record id="view_note_note_form_inherited" model="ir.ui.view">
+        <field name="name">note.note.form.inherited</field>
+        <field name="model">note.note</field>
+        <field name="inherit_id" ref="note.view_note_note_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tag_ids']" position="before">
+                <field name="project_id" options="{'no_open': True, 'no_create': True}" placeholder="Project"/>
+                <field name="task_ids" widget="many2many_tags" options="{'no_open': True, 'no_create': True}" placeholder="Tasks"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
